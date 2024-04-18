@@ -34,9 +34,11 @@ The command to do this is as follows:
 ln -s /absolute/path/to/cloned/repo /opt/homebrew/var/www/team-project
 ```
 
-> On Windows, you'll instead want to use the [`mklink`](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/mklink) command. The symlink flag is `/d`, and the target and linkname are swapped in comparison to `ln`.
+> On Windows, you'll instead want to use the [`mklink`](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/mklink) command. The symlink flag is `/d`, and the target and linkname are swapped in comparison to `ln` (the absolute path to the document root will also be different).
 
 And we're done! At this point, running `httpd -X` and navigating to `localhost:8080/team-project` should just render the root page in this repository. It's worth briefly noting that this _could_ have been done more quickly with a command like `php -t . -s localhost:8080`, but it wouldn't necessarily be compatible with the server environment – things that work on the `php` server have no guarantee of working on the `httpd` server, and vice versa.
+
+Keep in mind that `httpd` is intended to run as a daemon, and will reflect changes to your local files whenever you reload a page. To use this functionality properly, run `apachectl start` to keep the server running in the background.
 
 ## Resources
 - [The PHP 8.3 Manual](https://www.php.net/manual/en/)
