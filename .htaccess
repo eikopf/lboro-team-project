@@ -1,1 +1,4 @@
+# renders a site index at the docroot
 Options +Indexes
+# tells the server to look for the docroot at standard_index.html, then index.php, then index.html
+DirectoryIndex standard_index.html index.php index.html
