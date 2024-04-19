@@ -40,6 +40,21 @@ And we're done! At this point, running `httpd -X` and navigating to `localhost:8
 
 Keep in mind that `httpd` is intended to run as a daemon, and will reflect changes to your local files whenever you reload a page. To use this functionality properly, run `apachectl start` to keep the server running in the background.
 
+> This following section only applies on MacOS.
+
+`brew` doesn't install a version of `httpd` with PHP support by default, so you'lll need to enable it. This is done by running `brew install php` and adding the following code after the `LoadModule` section:
+
+```apache
+LoadModule php_module /opt/homebrew/opt/php/lib/httpd/modules/libphp.so
+
+<IfModule php_module>
+  <FilesMatch \.(php|phar)$>
+    AddType text/html .php
+    SetHandler application/x-httpd-php
+  </FilesMatch>
+</IfModule>
+```
+
 ## Running the MySQL Server Locally
 To get a better development experience, you'll also want to have a MySQL server running on your local machine. This requires a few steps:
 1. Install a version of `mysql` (either MySQL itself via `brew install mysql`, or MariaDB via `brew install mariadb`);
