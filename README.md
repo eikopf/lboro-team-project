@@ -6,7 +6,7 @@ The actual servers used in this project (both the personal and group ones) are u
 
 While the default pages stored on these servers use `standard_index.html` as their document root, this is _terrible_ for compatibility; we have instead moved these files to `index.html`, which the servers will still happily accept as a valid document root. This could potentially cause issues when copying files directly to the servers, since it seems likely that they're configured to search for `standard_index.html` _before_ looking for the usual `index.html`.
 
-## Development Environment Configuration
+## Development Server Configuration
 > This is primarily angled towards a MacOS/Linux user, but _should_ be relatively applicable for Windows.
 
 Because logging into the servers to make changes is annoying, it's generally preferable to run a so-called _dev server_ on your local machine. This section will discuss how to do this, with a particular focus on avoiding changes that might break the code when it's loaded onto the servers.
@@ -39,6 +39,15 @@ ln -s /absolute/path/to/cloned/repo /opt/homebrew/var/www/team-project
 And we're done! At this point, running `httpd -X` and navigating to `localhost:8080/team-project` should just render the root page in this repository. It's worth briefly noting that this _could_ have been done more quickly with a command like `php -t . -s localhost:8080`, but it wouldn't necessarily be compatible with the server environment – things that work on the `php` server have no guarantee of working on the `httpd` server, and vice versa.
 
 Keep in mind that `httpd` is intended to run as a daemon, and will reflect changes to your local files whenever you reload a page. To use this functionality properly, run `apachectl start` to keep the server running in the background.
+
+## Running the MySQL Server Locally
+To get a better development experience, you'll also want to have a MySQL server running on your local machine. This requires a few steps:
+1. Install a version of `mysql` (either MySQL itself via `brew install mysql`, or MariaDB via `brew install mariadb`);
+2. Start the `mysql` server with a command like `brew services start mysql`;
+3. Login to the `mysql` server with `mysql -u root`;
+4. Run `status` to check your configuration is normal.
+
+Assuming you have everything setup properly, you can first run the command `create database team_project;` to instantiate a development database, followed by `use team_project;` to make it your default for the current session. At this point, all you have to do is run `source ./sql/tables.sql;` from the root of this repository to create the necessary tables in this database.
 
 ## Resources
 - [The PHP 8.3 Manual](https://www.php.net/manual/en/)
