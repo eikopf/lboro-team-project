@@ -43,3 +43,4 @@ Keep in mind that `httpd` is intended to run as a daemon, and will reflect chang
 ## Resources
 - [The PHP 8.3 Manual](https://www.php.net/manual/en/)
 - [Apache Web Server Docs](https://httpd.apache.org/docs/2.4/)
+- [MySQL 8.3 Docs](https://dev.mysql.com/doc/refman/8.3/en/)
