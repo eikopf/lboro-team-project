@@ -35,14 +35,15 @@ create table items (
   owner int not null,
   title varchar(40) not null,
   category varchar(40) not null,
-  description longtext not null,
+  description text not null,
   price decimal(6, 2) not null,
   postage varchar(40) not null,
   start timestamp not null default current_timestamp on update current_timestamp,
-  finish timestamp not null default 0,
+  finish timestamp not null,
   primary key (id),
   -- an item must always be owned by a user
-  foreign key (owner) references users(id)
+  foreign key (owner) references users(id),
+  FULLTEXT (title, description)
 ) engine = MyISAM;
 
 create table images (

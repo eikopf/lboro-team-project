@@ -1,61 +1,38 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>Group 4 - iBay</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <meta name="robots" content="noindex" />
-	<style type="text/css"><!--
-    body {
-        color: #444444;
-        background-color: #EEEEEE;
-        font-family: 'Trebuchet MS', sans-serif;
-        font-size: 80%;
-    }
-    h1 {}
-    h2 { font-size: 1.2em; text-align: center; }
-    #page{
-        background-color: #FFFFFF;
-        width: 60%;
-        margin: 24px auto;
-        padding: 12px;
-    }
-    #header{
-        padding: 6px ;
-        text-align: center;
-    }
-    .header{ background-color: #D787D8; color: #FFFFFF; }
-    #content {
-        padding: 4px 0 24px 0;
-    }
-    #footer {
-        color: #666666;
-        background: #f9f9f9;
-        padding: 10px 20px;
-        border-top: 5px #efefef solid;
-        font-size: 0.8em;
-        text-align: center;
-    }
-    #footer a {
-        color: #999999;
-    }
-    --></style>
+  <title>Group 4 - iBay</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" type="text/css" href="../css/base.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="../js/search.js"></script>
+  <script type="text/javascript">
+    const search = () => {
+      // grab text from search input
+      let query = $(".search-input").first().val();
+      // get items from database and (for now) log them out
+      search_items(query)
+        .then(console.log);
+    };
+  </script>
 </head>
+
 <body>
-    <div id="page">
-        <div id="header" class="header">
-            <h1>Team Project - Group 4</h1>
-        </div>
-        <div id="content">
-          <h2>This page is defined in the <?php echo "blah"; ?> file.</h2>
-          <p>
-          This is the default page for this website, since we have not yet decided on a design or plan. 
-          You can find the repository in which this website is stored 
-            <a href=https://github.com/eikopf/lboro-team-project>here</a>,
-          and in the meantime follow the instructions to configure a development server on your local machine.
-          </p>
-        </div>
-    </div>
+  <div id="page">
+    <header>
+      <h1>HOME</h1>
+      <div class="search">
+        <input class="search-input" placeholder="Enter your search query here!" />
+        <button class="search-button" onclick="search()">
+          Search
+        </button>
+      </div>
+      <h1>LOGIN</h1>
+    </header>
+  </div>
 </body>
+
 </html>
