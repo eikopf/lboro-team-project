@@ -16,7 +16,7 @@ create table users (
   name varchar(20) not null,
   -- passwords are stored in plaintext
   password varchar(20) not null,
-  address varchar(20) not null,
+  address varchar(40) not null,
   postcode varchar(20) not null,
   -- ratings are bounded from 0 to 100
   -- NOTE: the version of mysql on the servers does not support CHECK constraints
@@ -41,7 +41,7 @@ create table items (
   ) not null,
   description text not null,
   price decimal(6, 2) not null,
-  postage varchar(40) not null,
+  postage decimal(6, 2) not null,
   start timestamp not null default current_timestamp on update current_timestamp,
   finish timestamp not null,
   primary key (id),
