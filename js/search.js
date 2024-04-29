@@ -110,8 +110,74 @@ const search_items = async (query, options = {}) => {
  * @returns {HTMLElement}
  */
 const render_item = (item) => {
-  console.log(item);
-  let item_root = document.createElement("div");
-  item_root.appendChild(document.createTextNode(item.title));
-  return item_root;
+  // root node
+  let result = document.createElement("div");
+  result.setAttribute("class", "search-result-item");
+
+  // thumbnail node
+  // TODO: add image data to server response
+  let thumbnail = document.createElement("div");
+  thumbnail.setAttribute("class", "search-result-item-thumbnail");
+  result.appendChild(thumbnail);
+
+  // title node
+  let title = document.createElement("h2");
+  title.textContent = item.title;
+  title.style.fontSize = "17pt";
+  title.style.margin = "inherit";
+  result.appendChild(title);
+
+  // text node
+  let text_element = document.createElement("div");
+  text_element.setAttribute("class", "search-result-item-text");
+
+  // description
+  let description = document.createElement("i");
+  description.textContent =
+    item.description.substring(0, 40) +
+    (item.description.length > 40 ? "..." : "");
+  description.style.fontSize = "10pt";
+  description.style.margin = "inherit";
+  text_element.appendChild(description);
+
+  // user block
+  let user_block = document.createElement("p");
+  user_block.textContent = `Published by ${item.owner.name} (${item.owner.email}, rated ${item.owner.rating}%)`;
+  user_block.style.fontSize = "7pt";
+  user_block.style.margin = "inherit";
+  text_element.appendChild(user_block);
+
+  // date information
+  let date_info = document.createElement("p");
+  //let start = new Date(item.start);
+  let finish = new Date(item.finish);
+  // convert from miliseconds to days
+  let interim_days = Math.floor((finish - Date.now()) / 86_400_000);
+  date_info.textContent = `Auction ends ${finish.toDateString()}! (${interim_days} days remaining)`;
+  date_info.style.fontSize = "7pt";
+  date_info.style.margin = "inherit";
+  text_element.appendChild(date_info);
+
+  result.appendChild(text_element);
+
+  // fee information
+  let fees = document.createElement("div");
+  fees.setAttribute("class", "search-result-item-fees");
+
+  // price
+  let price = document.createElement("p");
+  price.textContent = `£${item.price.toFixed(2)}`;
+  price.style.margin = "inherit";
+  fees.appendChild(price);
+
+  // postage
+  let postage = document.createElement("p");
+  postage.textContent = `(Postage: £${item.postage.toFixed(2)})`;
+  postage.style.margin = "inherit";
+  postage.style.fontSize = "9pt";
+  fees.appendChild(postage);
+
+  result.appendChild(fees);
+
+  return result;
 };

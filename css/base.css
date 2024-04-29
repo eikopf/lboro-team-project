@@ -11,7 +11,6 @@ h1 {
 
 h2 {
   font-size: 14pt;
-  text-align: center;
 }
 
 #page {
@@ -27,6 +26,10 @@ header {
   gap: 10px;
   background-color: #D787D8;
   color: #FFFFFF;
+}
+
+.linked-text:hover {
+  color: #EEEEEE;
 }
 
 /* root container for the search bar */
@@ -59,7 +62,39 @@ header {
 .search-results-items {
   display: flex;
   flex-direction: column;
-  align-items: left;
+  gap: 0.3em;
+}
+
+.search-result-item {
+  display: grid;
+  align-items: center;
+  gap: 0.2em;
+  grid-template-columns: 0.5fr 2fr 2fr 1fr;
+  height: 65px;
+  margin: unset;
+  border-top: solid;
+  border-bottom: solid;
+  border-width: thin;
+}
+
+.search-result-item:hover {
+  background-color: #DDDDDD;
+}
+
+.search-result-item-text {
+  align-items: center;
+  display: grid;
+  gap: 0.2em;
+  grid-template-rows: 2fr 1fr 1fr;
+  margin: inherit;
+}
+
+.search-result-item-fees {
+  align-items: center;
+  display: grid;
+  grid-template-rows: 2.5fr 1fr;
+  text-align: center;
+  margin: inherit;
 }
 
 #content {
