@@ -16,6 +16,7 @@ const search_script = "../php/search.php";
  * @param {number} [options.min_price] - The minimum price for matching items.
  * @param {number} [options.max_price] - The maximum price for matching items.
  * @param {string[]} [options.categories] - The set of categories to include.
+ * @returns {object[]}
  */
 const search_items = async (query, options = {}) => {
   // fill in default values, relying on the fact that null is falsey
@@ -33,13 +34,32 @@ const search_items = async (query, options = {}) => {
   return fetch(search_script, {
     body: JSON.stringify(query_context),
     method: "POST",
-  }).then((response) => {
+  }).then(async (response) => {
     // if the server returns an error, then throw an error
     if (!response.ok) {
       throw new Error(`Server responded ${response.status}`);
     }
 
     // otherwise extract the content of the response (as a promise)
-    return response.text();
+    return response.text().then(JSON.parse);
   });
+};
+
+/**
+ * Converts the given `item` into an HTML element.
+ *
+ * @param {object} item - The item to be rendered.
+ * @param {string} item.title - The title of the item.
+ * @param {string[]} item.categories - The categories that the item is in.
+ * @param {string} item.description - The longform description of the item.
+ * @param {number} item.price - The price of the item.
+ * @param {number} item.postage - The postage fee for the item.
+ * @param {string} item.start - A datestring corresponding to the start of the auction period for the item.
+ * @param {string} item.finish - A datestring corresponding to the end of the auction period for the item.
+ * @returns {HTMLElement}
+ */
+const render_item = (item) => {
+  let item_root = document.createElement("div");
+  item_root.appendChild(document.createTextNode(item.title));
+  return item_root;
 };
