@@ -1,8 +1,63 @@
 /**
+ * An item retrieved from the database
+ * @typedef {object} Item
+ * @prop {int} id - The item's database id.
+ * @prop {string} title - The item's title.
+ * @prop {string[]} categories - The set of categories that the item is in.
+ * @prop {string} description - The item's longform description.
+ * @prop {float} price - The item's price.
+ * @prop {float} postage - The postage fee for the item.
+ * @prop {Date} start - The start date for the item's auctioning period.
+ * @prop {Date} finish - The end date for the item's auctioning period.
+ * @prop {object} owner - The item's owner.
+ * @prop {int} owner.id - The owner's id.
+ * @prop {string} owner.name - The owner's name.
+ * @prop {string} owner.email - The owner's email.
+ * @prop {int} owner.rating - The owner's rating.
+ */
+
+/**
  * The script invoked when making search requests to the server.
  *
  */
 const search_script = "../php/search.php";
+
+/**
+ * Converts the given table of strings into a properly-typed item.
+ *
+ * @param {object} raw_item - A string tables.
+ * @param {string} raw_item.id - The id of the item.
+ * @param {string} raw_item.title - The title of the item.
+ * @param {string[] | string} raw_item.categories - The set of categories for the item.
+ * @param {string} raw_item.description - The longform description of the item.
+ * @param {string} raw_item.price - The price of the item.
+ * @param {string} raw_item.postage - The postage fee of the item.
+ * @param {string} raw_item.start - The start date for the auctioning period of the item.
+ * @param {string} raw_item.end - The end date for the the auctioning period of the item.
+ * @param {string} raw_item.owner_id - The id of the item's owner.
+ * @param {string} raw_item.owner - The name of the item's owner.
+ * @param {string} raw_item.owner_email - The item's owner's email.
+ * @param {string} raw_item.owner_rating - The owner's rating on a scale of 0 to 100.
+ * @returns {Item}
+ */
+const parse_item = (raw_item) => {
+  return {
+    id: Number.parseInt(raw_item.id),
+    title: raw_item.title,
+    categories: [raw_item.categories].flat(),
+    description: raw_item.description,
+    price: Number.parseFloat(raw_item.price),
+    postage: Number.parseFloat(raw_item.postage),
+    start: Date.parse(raw_item.start),
+    finish: Date.parse(raw_item.finish),
+    owner: {
+      id: Number.parseInt(raw_item.owner_id),
+      name: raw_item.owner,
+      email: raw_item.owner_email,
+      rating: Number.parseInt(raw_item.owner_rating),
+    },
+  };
+};
 
 /**
  * Returns a list of items matching the given `query`, possibly modified by some `options`.
@@ -16,7 +71,7 @@ const search_script = "../php/search.php";
  * @param {number} [options.min_price] - The minimum price for matching items.
  * @param {number} [options.max_price] - The maximum price for matching items.
  * @param {string[]} [options.categories] - The set of categories to include.
- * @returns {object[]}
+ * @returns {Item[]}
  */
 const search_items = async (query, options = {}) => {
   // fill in default values, relying on the fact that null is falsey
@@ -41,24 +96,21 @@ const search_items = async (query, options = {}) => {
     }
 
     // otherwise extract the content of the response (as a promise)
-    return response.text().then(JSON.parse);
+    return response
+      .text()
+      .then(JSON.parse)
+      .then((items) => items.map(parse_item));
   });
 };
 
 /**
  * Converts the given `item` into an HTML element.
  *
- * @param {object} item - The item to be rendered.
- * @param {string} item.title - The title of the item.
- * @param {string[]} item.categories - The categories that the item is in.
- * @param {string} item.description - The longform description of the item.
- * @param {number} item.price - The price of the item.
- * @param {number} item.postage - The postage fee for the item.
- * @param {string} item.start - A datestring corresponding to the start of the auction period for the item.
- * @param {string} item.finish - A datestring corresponding to the end of the auction period for the item.
+ * @param {Item} item - The item to be rendered.
  * @returns {HTMLElement}
  */
 const render_item = (item) => {
+  console.log(item);
   let item_root = document.createElement("div");
   item_root.appendChild(document.createTextNode(item.title));
   return item_root;

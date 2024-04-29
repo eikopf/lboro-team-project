@@ -56,6 +56,12 @@ header {
   background: #DDDDDD;
 }
 
+.search-results-items {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
 #content {
   padding: 4px 0 24px 0;
 }
