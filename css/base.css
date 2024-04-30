@@ -19,7 +19,7 @@ h2 {
 }
 
 header {
-  padding: 3px;
+  padding: 10px;
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -28,7 +28,11 @@ header {
   color: #FFFFFF;
 }
 
-.linked-text:hover {
+.material-symbols-outlined.header {
+  font-size: 34pt;
+}
+
+.material-symbols-outlined.header:hover {
   color: #EEEEEE;
 }
 
@@ -43,9 +47,16 @@ header {
 
 /* the actual search input textbox */
 .search-input {
+  font-size: 16pt;
   flex-grow: 1;
   border-radius: 5px 5px 5px 5px;
   border: 2px solid;
+  padding-left: 0.3em;
+}
+
+.search-input::placeholder {
+  font-style: italic;
+  font-size: 14pt;
 }
 
 .search-button {
