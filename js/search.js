@@ -181,3 +181,23 @@ const render_item = (item) => {
 
   return result;
 };
+
+/**
+ * Converts a `name` describing a sort order into the corresponding comparator.
+ *
+ * @param {"title-alpha" | "price-asc" | "price-desc" | "ending-soonest"} name - The name of the sort order.
+ * @return {(Item, Item) => number }
+ */
+const sort_comparator = (name) => {
+  switch (name) {
+    case "title-alpha":
+      return (a, b) =>
+        a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+    case "price-asc":
+      return (a, b) => a.price - b.price;
+    case "price-desc":
+      return (a, b) => b.price - a.price;
+    case "ending-soonest":
+      return (a, b) => a.finish - b.finish;
+  }
+};

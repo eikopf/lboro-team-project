@@ -14,14 +14,28 @@
     const search = () => {
       // grab text from search input
       let query = $(".search-input").first().val();
+      let sorter = sort_comparator($("#sorting-order").val());
       // get items from database and (for now) log them out
       search_items(query)
+        .then((items) => items.sort(sorter))
         .then((items) => items.map(render_item))
         .then((items) => {
           const results_box = document.querySelector(".search-results-items");
           results_box.textContent = ""; // clear existing search results
           items.forEach((item) => results_box.append(item)); // insert new search results
         });
+    };
+
+    const toggle_search_menu = () => {
+      // grab menu root element
+      let menu = $(".search-menu-dropdown");
+
+      // toggle .hidden <=> .shown
+      if (menu.attr("class") === "search-menu-dropdown hidden") {
+        menu.attr("class", "search-menu-dropdown shown");
+      } else {
+        menu.attr("class", "search-menu-dropdown hidden");
+      }
     };
   </script>
 </head>
@@ -34,13 +48,65 @@
       </a>
       <div class="search">
         <input class="search-input" oninput="search()" placeholder="Enter your search here!" />
+        <div class="search-menu-container">
+          <div class="search-input-menu-button" onclick="toggle_search_menu()">
+            <span class="material-symbols-outlined" style="padding-top: 6px;">expand_more</span>
+          </div>
+          <div class="search-menu-dropdown hidden">
+            <ul class="search-menu-item-list">
+              <li class="search-menu-item category-selector">
+                <label for="category-select">Category:</label>
+                <select name="categories" id="category-select">
+                  <option value="" selected>All categories</option>
+                  <option value="art">Art</option>
+                  <option value="books">Books</option>
+                  <option value="clothes">Clothes</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="media">Media</option>
+                  <option value="music">Music</option>
+                  <option value="toys">Toys</option>
+                </select>
+              </li>
+              <li class="search-menu-item date-selector">
+                <label for="start-date-input">Earliest date:</label>
+                <input name="start" id="start-date-input" type="date"></input>
+              </li>
+              <li class="search-menu-item date-selector">
+                <label for="finish-date-input">Latest date:</label>
+                <input name="finish" id="finish-date-input" type="date"></input>
+              </li>
+              <li class="search-menu-item price-selector">
+                <input name="min_price" id="min-price-input" type="text" inputmode="numeric"
+                  placeholder="Minimum price">
+                </input>
+              </li>
+              <li class="search-menu-item price-selector">
+                <input name="max_price" id="max-price-input" type="text" inputmode="numeric"
+                  placeholder="Maximum price">
+                </input>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <a href="" style="all: initial; color: white;">
+      <a href="" style="all: initial; color: white; padding-top: 4px;">
         <span class="material-symbols-outlined header">login</span>
       </a>
     </header>
     <div class="search-results">
-      <h2>Search Results</h2>
+      <div class="search-results-banner">
+        <h2>Search Results:</h2>
+        <span class="search-results-banner-item-count">
+          (<span id="search-results-banner-item-count value">0</span> item(s))
+        </span>
+        <label for="sorting-order" style="font-size: 12pt;">Sort:</label>
+        <select id="sorting-order" class="search-results-sorting-order" onchange="search()">
+          <option value="title-alpha" selected>Alphabetical</option>
+          <option value="price-asc">Price (asc.)</option>
+          <option value="price-desc">Price (desc.)</option>
+          <option value="ending-soonest">Time remaining</option>
+        </select>
+      </div>
       <div class="search-results-items"></div>
     </div>
   </div>
