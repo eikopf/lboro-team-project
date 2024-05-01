@@ -14,14 +14,19 @@
     const search = () => {
       // grab text from search input
       let query = $(".search-input").first().val();
+      // choose sorting method
       let sorter = sort_comparator($("#sorting-order").val());
       // get items from database and (for now) log them out
       search_items(query)
+        // sort items
         .then((items) => items.sort(sorter))
+        // render items
         .then((items) => items.map(render_item))
+        // attach rendered items to the DOM
         .then((items) => {
           const results_box = document.querySelector(".search-results-items");
           results_box.textContent = ""; // clear existing search results
+          $(".search-results-banner-item-count.value").text(items.length.toString());
           items.forEach((item) => results_box.append(item)); // insert new search results
         });
     };
@@ -97,7 +102,7 @@
       <div class="search-results-banner">
         <h2>Search Results:</h2>
         <span class="search-results-banner-item-count">
-          (<span id="search-results-banner-item-count value">0</span> item(s))
+          (<span class="search-results-banner-item-count value">0</span> item(s))
         </span>
         <label for="sorting-order" style="font-size: 12pt;">Sort:</label>
         <select id="sorting-order" class="search-results-sorting-order" onchange="search()">
