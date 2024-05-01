@@ -64,26 +64,28 @@ const parse_item = (raw_item) => {
  *
  * @param {string} query - The query string, matched against titles and descriptions.
  * @param {object} [options] - A table of options.
+ * @param {string} [options.category] - The specified category of items to search in.
  * @param {string} [options.start_date] - The beginning of the date range for matching items.
  * @param {string} [options.end_date] - The end of the date range for matching items.
- * @param {number} [options.min_rating] - The minimum rating for matching items.
- * @param {number} [options.max_rating] - The maximum rating for matching items.
+ * @param {number} [options.min_rating] - The minimum user rating for matching items.
  * @param {number} [options.min_price] - The minimum price for matching items.
  * @param {number} [options.max_price] - The maximum price for matching items.
- * @param {string[]} [options.categories] - The set of categories to include.
  * @returns {Item[]}
  */
 const search_items = async (query, options = {}) => {
   // fill in default values, relying on the fact that null is falsey
   let query_context = {
     query: query || "",
+    category: options.category || "",
     start_date: new Date(options.start_date || 0),
-    end_date: new Date(options.end_date || Number.MAX_SAFE_INTEGER),
+    // the integer literal corresponds to 9999-31-12, the max date in MySQL
+    end_date: new Date(options.end_date || 253_402_214_440_000),
     min_rating: options.min_rating || 0,
-    max_rating: options.max_rating || 100,
     min_price: options.min_price || 0,
-    max_price: options.max_price || Number.MAX_SAFE_INTEGER,
+    max_price: options.max_price || Number.MAX_VALUE,
   };
+
+  console.log(query_context);
 
   // construct a POST request with the attached context
   return fetch(search_script, {

@@ -11,13 +11,23 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="../js/search.js"></script>
   <script type="text/javascript">
+    // function to query db and (re)render search results
     const search = () => {
       // grab text from search input
       let query = $(".search-input").first().val();
       // choose sorting method
       let sorter = sort_comparator($("#sorting-order").val());
-      // get items from database and (for now) log them out
-      search_items(query)
+      // grab additional search parameters from the dropdown menu
+      let options = {
+        category: $("#category-select").val(),
+        start_date: $("#start-date-input").val(),
+        end_date: $("#finish-date-input").val(),
+        min_rating: Number.parseInt($("#min-rating-input").val()),
+        min_price: Number.parseFloat($("#min-price-input").val()),
+        max_price: Number.parseFloat($("#max-price-input").val()),
+      };
+      // get items from database, sort them, and render the results
+      search_items(query, options)
         // sort items
         .then((items) => items.sort(sorter))
         // render items
@@ -58,7 +68,7 @@
             <span class="material-symbols-outlined" style="padding-top: 6px;">expand_more</span>
           </div>
           <div class="search-menu-dropdown hidden">
-            <ul class="search-menu-item-list">
+            <ul class="search-menu-item-list" onchange="search()">
               <li class="search-menu-item category-selector">
                 <label for="category-select">Category:</label>
                 <select name="categories" id="category-select">
@@ -74,20 +84,25 @@
               </li>
               <li class="search-menu-item date-selector">
                 <label for="start-date-input">Earliest date:</label>
-                <input name="start" id="start-date-input" type="date"></input>
+                <input name="start_date" id="start-date-input" type="date"></input>
               </li>
               <li class="search-menu-item date-selector">
                 <label for="finish-date-input">Latest date:</label>
-                <input name="finish" id="finish-date-input" type="date"></input>
+                <input name="end_date" id="finish-date-input" type="date"></input>
               </li>
               <li class="search-menu-item price-selector">
-                <input name="min_price" id="min-price-input" type="text" inputmode="numeric"
-                  placeholder="Minimum price">
+                <label for="min-price-input">Minimum price:</label>
+                <input name="min_price" id="min-price-input" type="text" inputmode="numeric" placeholder="e.g. 13.40">
                 </input>
               </li>
               <li class="search-menu-item price-selector">
-                <input name="max_price" id="max-price-input" type="text" inputmode="numeric"
-                  placeholder="Maximum price">
+                <label for="max-price-input">Maximum price:</label>
+                <input name="max_price" id="max-price-input" type="text" inputmode="numeric" placeholder="e.g. 1026.43">
+                </input>
+              </li>
+              <li class="search-menu-item rating-selector">
+                <label for="min-rating-input">Minimum user rating (0-100):</label>
+                <input name="min_rating" id="min-rating-input" type="number" value="0">
                 </input>
               </li>
             </ul>

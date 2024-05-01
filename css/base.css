@@ -165,15 +165,16 @@ header {
 
 .search-result-item {
   cursor: pointer;
+  background-color: white;
   display: grid;
   align-items: center;
   gap: 0.2em;
   grid-template-columns: 0.5fr 2fr 2fr 1fr;
   height: 65px;
   margin: unset;
-  border-top: solid;
-  border-bottom: solid;
+  border: 1px solid;
   border-width: thin;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .search-result-item:hover {
