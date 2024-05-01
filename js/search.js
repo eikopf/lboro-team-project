@@ -187,7 +187,7 @@ const render_item = (item) => {
 /**
  * Converts a `name` describing a sort order into the corresponding comparator.
  *
- * @param {"title-alpha" | "price-asc" | "price-desc" | "ending-soonest"} name - The name of the sort order.
+ * @param {"title-alpha" | "price-asc" | "price-desc" | "ending-soonest" | "user-rating-desc"} name - The name of the sort order.
  * @return {(Item, Item) => number }
  */
 const sort_comparator = (name) => {
@@ -201,5 +201,14 @@ const sort_comparator = (name) => {
       return (a, b) => b.price - a.price;
     case "ending-soonest":
       return (a, b) => a.finish - b.finish;
+    case "user-rating-asc":
+      return (a, b) => a.owner.rating - b.owner.rating;
+    case "user-rating-desc":
+      return (a, b) => b.owner.rating - a.owner.rating;
+    default:
+      console.log(
+        "Encountered unknown sort ordering; defaulting to alphabetical...",
+      );
+      return sort_comparator("title-alpha");
   }
 };
