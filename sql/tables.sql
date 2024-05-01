@@ -12,7 +12,7 @@
 
 create table users (
   id int not null auto_increment,
-  email varchar(20) not null,
+  email varchar(20) unique not null,
   name varchar(20) not null,
   -- passwords are stored in plaintext
   password varchar(20) not null,

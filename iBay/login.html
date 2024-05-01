@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>iBay - Login</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/base.css" />
+  <link rel="stylesheet" type="text/css" href="../css/login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="../js/login.js"></script>
+  <script type="text/javascript">
+    // function invoked when the login button is clicked
+    const login = () => {
+      const email = $("#email-input").val();
+      const password = $("#password-input").val();
+
+      // TODO: this works, so now it needs to start a session and redirect the user
+      check_credentials(email, password)
+        .then(console.log);
+    };
+  </script>
+</head>
+
+<body>
+  <div class="login-center-block">
+    <div class="login-container">
+      <span class="login-title">Login to iBay</span>
+      <div class="login-input-container">
+        <label class="login-input-label" for="email-input">Email:</label>
+        <input id="email-input" class="login-input" type="email" placeholder="e.g. user@example.com">
+        </input>
+      </div>
+      <div class="login-input-container">
+        <label class="login-input-label" for="password-input">Password:</label>
+        <input id="password-input" class="login-input" type="password"
+          placeholder="e.g., giving an example here would probably be a major security flaw..."></input>
+      </div>
+      <div class="login-button-container">
+        <button class="login-button back">
+          <a href="main-G04.html" style="all: initial;">
+            <span class="material-symbols-outlined login-button-symbol back">
+              keyboard_return
+            </span>
+          </a>
+        </button>
+        <button class="login-button submit" onclick="login()">
+          <span class="material-symbols-outlined login-button-symbol submit">
+            input
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="login-container">
+      <span class="register-title">...or register a new account!</span>
+      <div class="registration-form">
+        <label class="register-label" for="register-name-input">Name:</label>
+        <input id="register-name-input" class="register-input" type="text" placeholder="e.g. John">
+        </input>
+        <label class="register-label" for="register-email-input">Email:</label>
+        <input id="register-email-input" class="register-input" type="email"
+          placeholder="e.g. john@example.com"></input>
+        <label class="register-label" for="register-password-input">Password:</label>
+        <input id="register-password-input" class="register-input" type="password"
+          placeholder="something long and memorable..."></input>
+        <label class="register-label" for="register-address-input">Address:</label>
+        <input id="register-address-input" class="register-input" type="text"
+          placeholder="e.g. Dreilindenstraße 84"></input>
+        <label class="register-label" for="register-postcode-input">Postcode:</label>
+        <input id="register-postcode-input" class="register-input" type="text" placeholder="e.g. LE11 3TU"></input>
+      </div>
+      <div class="register-button-container">
+        <button class="register-button">
+          <span class="material-symbols-outlined login-button-symbol register">
+            input
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
