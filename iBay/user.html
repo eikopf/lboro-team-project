@@ -1,0 +1,99 @@
+<html>
+
+<head>
+  <title>Group 4 - iBay</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" type="text/css" href="../css/base.css" />
+  <link rel="stylesheet" type="text/css" href="../css/user.css" />
+  <script rel="preload" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script rel="preload" src="../js/search.js"></script>
+  <script rel="preload" src="../js/user.js"></script>
+  <script rel="preload" type="text/javascript">
+    // fetch the user's data before the page loads
+    const user_data = get_user_data();
+
+    // define a callback to set the username in the header
+    const set_username = () =>
+      user_data
+        .then((data) =>
+          document
+            .querySelector("#user-name")
+            .textContent = data.name);
+
+    // define a callback to fill out the user's details
+    const set_details = () =>
+      user_data
+        .then((data) => {
+          $("#details-username").text(data.name);
+          $("#details-email").text(data.email);
+          $("#details-rating").text(`${data.rating}%`);
+        });
+
+    const insert_items = () =>
+      user_data
+        .then((data) => data.items)
+        .then((items) => items.map(render_user_item))
+        .then((items) => items.forEach((item) =>
+          document
+            .querySelector("#rendered-user-items").appendChild(item)));
+  </script>
+</head>
+
+<body onload="set_username(); set_details(); insert_items()">
+  <header>
+    <a href="main-G04.html" style="all: initial; color: white;">
+      <span class="material-symbols-outlined header">home</span>
+    </a>
+    <span class="user-home-title">
+      User Home: <span id="user-name" class="user-home-title" onload="set_username()"></span>
+    </span>
+    <span onclick="logout()" style="all: initial; color: white; padding-top: 4px;">
+      <span class="material-symbols-outlined header">logout</span>
+    </span>
+  </header>
+  <div class="user-home-body">
+    <div class="user-home-columns">
+      <div class="user-home-pane left">
+        <div class="user-panel details">
+          <ul class="user-list details">
+            <li id="user-details-caption">Your details</li>
+            <li id="user-name-list-item">Name: <span id="details-username"></span></li>
+            <li id="user-email-list-item">Email: <span id="details-email"></span></li>
+            <li id="user-rating-list-item">Your rating: <span id="details-rating"></span></li>
+          </ul>
+        </div>
+        <div class="user-panel change-details">
+          <ul class="user-list change-details">
+            <li id="change-details-caption">Update details</li>
+            <li id="change-details-username">Name:
+              <input id="new-username" type="text" placeholder="Leave blank to keep your current name.">
+              </input>
+            </li>
+            <li id="change-details-password">Password:
+              <input id="new-password" type="password" placeholder="Leave blank to keep your current password.">
+              </input>
+            </li>
+          </ul>
+          <div class="submit-new-details-button-container">
+            <button class="submit-new-details-button">
+              <span class="material-symbols-outlined submit-new-details">input</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="user-home-pane right">
+        <div class="user-items-container">
+          <div class="user-items-title-container">
+            <span class="user-items-caption">Your items</span>
+            <div id="rendered-user-items"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

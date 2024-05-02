@@ -33,6 +33,7 @@ if ($query_is_valid) {
   session_start();
   // stash the user's id (as a string) for future db queries
   $_SESSION["user_id"] = $result->fetch_assoc()["id"];
+  session_commit();
 }
 
 // send response
