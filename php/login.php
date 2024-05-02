@@ -24,9 +24,16 @@ $password = $db->real_escape_string($json["password"]);
 
 // this query returns one row if the given email + password combination is valid, and 0 otherwise.
 // importantly, this row is NOT returned; only whether or not it exists
-$query = "SELECT * FROM users WHERE email = \"$email\" AND password = \"$password\"";
+$query = "SELECT id FROM users WHERE email = \"$email\" AND password = \"$password\"";
 $result = $db->query($query);
-$query_validity = $result->num_rows == 1;
+$query_is_valid = $result->num_rows == 1;
+
+// if the login was successful, then start a session
+if ($query_is_valid) {
+  session_start();
+  // stash the user's id (as a string) for future db queries
+  $_SESSION["user_id"] = $result->fetch_assoc()["id"];
+}
 
 // send response
-echo json_encode($query_validity);
+echo json_encode($query_is_valid);

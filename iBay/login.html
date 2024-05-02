@@ -17,7 +17,7 @@
       const password = $("#password-input").val();
 
       // TODO: this works, so now it needs to start a session and redirect the user
-      check_credentials(email, password)
+      try_login(email, password)
         .then(console.log);
     };
   </script>
@@ -35,15 +35,13 @@
       <div class="login-input-container">
         <label class="login-input-label" for="password-input">Password:</label>
         <input id="password-input" class="login-input" type="password"
-          placeholder="e.g., giving an example here would probably be a major security flaw..."></input>
+          placeholder="giving an example here would probably be a major security flaw..."></input>
       </div>
       <div class="login-button-container">
-        <button class="login-button back">
-          <a href="main-G04.html" style="all: initial;">
-            <span class="material-symbols-outlined login-button-symbol back">
-              keyboard_return
-            </span>
-          </a>
+        <button class="login-button back" onclick="location.href = 'main-G04.html'">
+          <span class="material-symbols-outlined login-button-symbol back">
+            keyboard_return
+          </span>
         </button>
         <button class="login-button submit" onclick="login()">
           <span class="material-symbols-outlined login-button-symbol submit">

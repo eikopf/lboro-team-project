@@ -1,18 +1,19 @@
 /**
- * The path to the credential-verifying script relative to `login.html`.
+ * The path to the login script relative to `login.html`.
  *
  */
-const credential_script = "../php/check-credentials.php";
+const login_script = "../php/login.php";
 
 /**
- * Checks the given user credentials against the database.
+ * Checks the given user credentials against the database, and logs the
+ * user in if they are correct.
  *
  * @param {string} email - The given user email
  * @param {string} password - The given user password
  * @returns {Promise<boolean>}
  */
-const check_credentials = (email, password) =>
-  fetch(credential_script, {
+const try_login = (email, password) =>
+  fetch(login_script, {
     body: JSON.stringify({ email: email, password: password }),
     method: "POST",
   })

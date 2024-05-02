@@ -29,7 +29,7 @@ body {
   cursor: default;
   align-self: center;
   font-weight: bold;
-  font-size: 24pt;
+  font-size: 20pt;
 }
 
 .login-input-container {
@@ -98,6 +98,7 @@ body {
 }
 
 .register-title {
+  font-size: 20pt;
   cursor: default;
   text-align: center;
   font-weight: bold;
