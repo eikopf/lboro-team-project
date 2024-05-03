@@ -20,7 +20,7 @@ create table users (
   postcode varchar(20) not null,
   -- ratings are bounded from 0 to 100
   -- NOTE: the version of mysql on the servers does not support CHECK constraints
-  rating tinyint unsigned not null default 0 check (rating <= 100),
+  rating tinyint unsigned not null default 50,
   primary key (id)
 ) engine = MyISAM;
 

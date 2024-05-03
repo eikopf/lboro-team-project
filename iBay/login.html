@@ -29,6 +29,38 @@
           }
         });
     };
+
+    // callback invoked when the register button is clicked
+    const register = () => {
+      // grab data from input fields
+      const name = $("#register-name-input").val();
+      const email = $("#register-email-input").val();
+      const password = $("#register-password-input").val();
+      const address = $("#register-address-input").val();
+      const postcode = $("#register-postcode-input").val();
+
+      // try to register the user
+      fetch("../php/register.php", {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          address: address,
+          postcode: postcode,
+        })
+      }).then((res) => res.text())
+        .then((res) => {console.log(res); return res;})
+        .then(JSON.parse)
+        .then((body) => {
+          if (!(body["success"])) {
+            console.log(body);
+            window.alert("Failed to register a new user with the given details.");
+          } else {
+            location.href = "user.html";
+          }
+        });
+    };
   </script>
 </head>
 
@@ -79,7 +111,7 @@
         <input id="register-postcode-input" class="register-input" type="text" placeholder="e.g. LE11 3TU"></input>
       </div>
       <div class="register-button-container">
-        <button class="register-button">
+        <button onclick="register()" class="register-button">
           <span class="material-symbols-outlined login-button-symbol register">
             input
           </span>
