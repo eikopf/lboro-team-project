@@ -85,8 +85,6 @@ const search_items = async (query, options = {}) => {
     max_price: options.max_price || Number.MAX_VALUE,
   };
 
-  console.log(query_context);
-
   // construct a POST request with the attached context
   return fetch(search_script, {
     body: JSON.stringify(query_context),

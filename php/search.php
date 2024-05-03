@@ -28,6 +28,7 @@ if (!$db) {
 
 // escape special characters (prevents SQL injection)
 $query = $db->real_escape_string($json["query"]);
+$category = $json["category"];
 $start_date = $json["start_date"];
 $end_date = $json["end_date"];
 $min_rating = $json["min_rating"];
@@ -52,6 +53,7 @@ $result = $db->query(
   FROM items, users 
     WHERE items.owner = users.id
     AND items.title LIKE \"%$query%\"
+    AND items.categories LIKE \"%$category%\"
     AND items.start >= \"$start_date\"
     AND items.finish <= \"$end_date\"
     AND users.rating >= $min_rating
