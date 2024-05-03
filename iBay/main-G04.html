@@ -42,6 +42,7 @@
         });
     };
 
+    // simple callback to toggle the visibility of the search menu
     const toggle_search_menu = () => {
       // grab menu root element
       let menu = $(".search-menu-dropdown");
@@ -53,10 +54,26 @@
         menu.attr("class", "search-menu-dropdown hidden");
       }
     };
+
+    // callback to set the right header button based on whether the user is logged in or not
+    const set_right_header_button = () =>
+      // send a GET request to this php script
+      fetch("../php/check-user-is-logged-in.php")
+        .then((res) => res.text())  // extract the response text
+        .then(JSON.parse)           // parse the text as JSON
+        .then((user_is_logged_in) => {
+          // set button icon
+          $(".material-symbols-outlined.header.right")
+            .text(user_is_logged_in ? "person" : "login");
+
+          // set the resulting location after pressing the button
+          $("#right-button-address")
+            .attr("href", user_is_logged_in ? "user.html" : "login.html");
+        });
   </script>
 </head>
 
-<body onload="search()">
+<body onload="set_right_header_button(); search()">
   <div id="page">
     <header>
       <a href="main-G04.html" style="all: initial; color: white;">
@@ -110,8 +127,8 @@
           </div>
         </div>
       </div>
-      <a href="login.html" style="all: initial; color: white; padding-top: 4px;">
-        <span class="material-symbols-outlined header">login</span>
+      <a id="right-button-address" href="login.html" style="all: initial; color: white; padding-top: 4px;">
+        <span class="material-symbols-outlined header right">login</span>
       </a>
     </header>
     <div class="search-results">

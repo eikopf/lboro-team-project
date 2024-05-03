@@ -11,14 +11,23 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="../js/login.js"></script>
   <script type="text/javascript">
-    // function invoked when the login button is clicked
+    // callback invoked when the login button is clicked
     const login = () => {
+      // grab credentials from the relevant inputs
       const email = $("#email-input").val();
       const password = $("#password-input").val();
 
-      // TODO: this works, so now it needs to start a session and redirect the user
+      // check the given credentials against the database
       try_login(email, password)
-        .then(console.log);
+        .then((creds_are_valid) => {
+          if (creds_are_valid) {
+            // if the credentials are valid, redirect to the user page
+            location.href = "user.html";
+          } else {
+            // otherwise, generate a popup indicating failiure
+            window.alert("The given username and password are invalid.")
+          }
+        });
     };
   </script>
 </head>

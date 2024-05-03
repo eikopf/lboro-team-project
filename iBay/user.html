@@ -15,6 +15,14 @@
     // fetch the user's data before the page loads
     const user_data = get_user_data();
 
+    // a simple callback to log the user out and return to the homepage
+    const logout = () => {
+      // first invoke the logout script
+      fetch("../php/logout.php");
+      // then redirect the user
+      location.href = "main-G04.html";
+    };
+
     // define a callback to set the username in the header
     const set_username = () =>
       user_data
@@ -50,7 +58,7 @@
     <span class="user-home-title">
       User Home: <span id="user-name" class="user-home-title" onload="set_username()"></span>
     </span>
-    <span onclick="logout()" style="all: initial; color: white; padding-top: 4px;">
+    <span onclick="logout()" style="all: initial; color: white; padding-top: 4px; cursor: pointer;">
       <span class="material-symbols-outlined header">logout</span>
     </span>
   </header>

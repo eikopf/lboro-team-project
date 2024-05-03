@@ -31,10 +31,13 @@ $query_is_valid = $result->num_rows == 1;
 // if the login was successful, then start a session
 if ($query_is_valid) {
   session_start();
+  // declare this session to be logged in (which can be used later for security checks)
+  $_SESSION["auth"] = true;
   // stash the user's id (as a string) for future db queries
   $_SESSION["user_id"] = $result->fetch_assoc()["id"];
+  // commit the given information to the session and close it
   session_commit();
 }
 
-// send response
+// send response as a simple bool, which will be true iff the user's credentials were correct
 echo json_encode($query_is_valid);

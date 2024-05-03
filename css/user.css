@@ -7,6 +7,7 @@ header {
   font-weight: bold;
   text-align: center;
   width: 100%;
+  cursor: default;
 }
 
 .user-home-body {
@@ -130,6 +131,7 @@ header {
 
 .user-items-caption {
   font-size: 18pt;
+  cursor: default;
 }
 
 #rendered-user-items {
@@ -141,6 +143,7 @@ header {
   flex-direction: row;
   width: 100%;
   gap: 0.4em;
+  cursor: pointer;
 }
 
 .user-item-thumbnail {
