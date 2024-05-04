@@ -26,7 +26,9 @@ if (!$db) {
 }
 
 // extract the user's information
-$result = $db->query("SELECT name, email, rating FROM users WHERE id = $user_id")->fetch_assoc();
+$result = $db->query(
+  "SELECT name, email, rating, address, postcode FROM users WHERE id = $user_id"
+)->fetch_assoc();
 // include the user's items
 $result["items"] = $db->query("SELECT * FROM items WHERE owner = $user_id")->fetch_all(MYSQLI_ASSOC);
 
