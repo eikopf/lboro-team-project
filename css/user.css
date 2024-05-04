@@ -67,6 +67,7 @@ header {
 
 .user-list>li>span {
   font-style: italic;
+  text-align: right;
 }
 
 .user-list>li>input {
@@ -144,6 +145,10 @@ header {
   width: 100%;
   gap: 0.4em;
   cursor: pointer;
+}
+
+.user-item:hover {
+  background-color: #DDDDDD;
 }
 
 .user-item-thumbnail {
