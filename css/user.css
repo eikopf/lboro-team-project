@@ -137,6 +137,7 @@ header {
 
 #rendered-user-items {
   padding-top: 0.4em;
+  padding-bottom: 0.4em;
 }
 
 .user-item {
@@ -184,4 +185,24 @@ header {
 .user-item-detail {
   font-size: 10pt;
   font-style: italic;
+}
+
+.add-item-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.add-item-button {
+  height: 30px;
+  width: 60px;
+  border: 2px solid;
+  border-color: black;
+  border-radius: 5px 5px 5px 5px;
+  background-color: #28D691;
+}
+
+.add-item-button:hover {
+  background-color: #28E691;
+  cursor: pointer;
 }
