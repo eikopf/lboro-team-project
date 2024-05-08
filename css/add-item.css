@@ -1,0 +1,133 @@
+header {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  height: 40px;
+}
+
+.material-symbols-outlined.return-button {
+  font-size: 30pt;
+}
+
+.add-item-header-title-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.add-item-header-title {
+  font-size: 24pt;
+}
+
+.add-item-empty-spacer {
+  height: 2em;
+}
+
+.add-item-main-content-container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 2em;
+}
+
+.add-item-body-container {
+  background-color: white;
+  border: 2px solid;
+  border-color: black;
+  border-radius: 5px 5px 5px 5px;
+  width: 90%;
+}
+
+.add-item-input-list {
+  list-style-type: none;
+  padding-inline: 2.5em;
+  line-height: 2.5em;
+}
+
+.add-item-input-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.add-item-input-list-item>span {
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+.add-item-input-list-item>input {
+  border: 1px solid;
+  border-color: black;
+  border-radius: 5px 5px 5px 5px;
+  padding-inline: 8px;
+  font-size: 14pt;
+  height: 80%;
+  align-self: center;
+  width: 60%;
+}
+
+.add-item-input-list-item>textarea {
+  border: 1px solid;
+  border-color: black;
+  border-radius: 5px 5px 5px 5px;
+  padding-inline: 8px;
+  font-size: 10pt;
+  width: 60%;
+}
+
+.add-item-input-list-item>select {
+  appearance: none;
+  background-color: white;
+  border: 1px solid;
+  border-color: black;
+  border-radius: 5px 5px 5px 5px;
+  padding-inline: 8px;
+  font-size: 10pt;
+  height: 90%;
+  width: 60%;
+  align-self: center;
+  font-style: italic;
+  font-size: 13pt;
+}
+
+.add-item-input-list-item>input::placeholder {
+  font-style: italic;
+}
+
+.add-item-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 2.5em;
+  padding-bottom: 1em;
+}
+
+.add-item-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 60px;
+  height: 30px;
+  border: 2px solid;
+  border-color: black;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.add-item-button-container.clear {
+  background-color: #AAAAAA;
+}
+
+.add-item-button-container.clear:hover {
+  background-color: #BBBBBB;
+  cursor: pointer;
+}
+
+.add-item-button-container.submit {
+  background-color: #0BDC89;
+}
+
+.add-item-button-container.submit:hover {
+  background-color: #0BEC89;
+  cursor: pointer;
+}
+
+.material-symbols-outlined.add-item-button {
+  text-align: center;
+  font-size: 18pt;
+}

@@ -1,0 +1,82 @@
+<html>
+
+<head>
+  <title>iBay User Home</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" type="text/css" href="../css/base.css" />
+  <link rel="stylesheet" type="text/css" href="../css/add-item.css" />
+  <script rel="preload" src="../js/add-item.js"></script>
+  <script rel="preload" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <span class="material-symbols-outlined return-button">keyboard_return</span>
+    <div class="add-item-header-title-container">
+      <span class="add-item-header-title">Add a New Item</span>
+    </div>
+  </header>
+  <div class="add-item-main-content-container">
+    <div class="add-item-body-container">
+      <div class="add-item-input-container">
+        <ul class="add-item-input-list">
+          <li class="add-item-input-list-item title">
+            <span class="add-item-label title">Title</span>
+            <input id="title" type="text" placeholder="The title of your item"></input>
+          </li>
+          <li class="add-item-input-list-item description">
+            <span class="add-item-label description">Description</span>
+            <textarea id="description" maxlength="100"
+              placeholder="A brief (i.e. at most 100 characters) description of your item."></textarea>
+          </li>
+          <li class="add-item-input-list-item category">
+            <span class="add-item-label category">Category</span>
+            <select id="category">
+              <option value="" default>None</option>
+              <option value="art">Art</option>
+              <option value="books">Books</option>
+              <option value="clothes">Clothes</option>
+              <option value="electronics">Electronics</option>
+              <option value="media">Media</option>
+              <option value="music">Music</option>
+              <option value="toys">Toys</option>
+            </select>
+          </li>
+          <li class="add-item-input-list-item price">
+            <span class="add-item-label price">Price</span>
+            <input id="price" inputmode="decimal" placeholder="The price of your item in GBP, e.g. 13.42"></input>
+          </li>
+          <li class="add-item-input-list-item postage">
+            <span class="add-item-label postage">Postage</span>
+            <input id="postage" inputmode="decimal" placeholder="The postage fee in GBP, e.g. 2.47"></input>
+          </li>
+          <li class="add-item-input-list-item start">
+            <span class="add-item-label start">Starting Date</span>
+            <input id="start" type="date"></input>
+          </li>
+          <li class="add-item-input-list-item end">
+            <span class="add-item-label end">Ending Date</span>
+            <input id="end" type="date"></input>
+          </li>
+          <li class="add-item-input-list-item images">
+            <span class="add-item-label images">Images</span>
+            <input multiple id="images" type="file" accept="image/png, image/jpeg, image/webp"></input>
+          </li>
+        </ul>
+      </div>
+      <div class="add-item-buttons">
+        <div class="add-item-button-container clear">
+          <span class="material-symbols-outlined add-item-button clear">delete</span>
+        </div>
+        <div class="add-item-button-container submit">
+          <span class="material-symbols-outlined add-item-button submit">add_circle</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

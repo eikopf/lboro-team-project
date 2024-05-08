@@ -115,8 +115,7 @@ const render_item = (item) => {
   result.setAttribute("class", "search-result-item");
 
   // thumbnail node
-  // TODO: add image data to server response
-  let thumbnail = document.createElement("div");
+  let thumbnail = document.createElement("img");
   thumbnail.setAttribute("class", "search-result-item-thumbnail");
   result.appendChild(thumbnail);
 
