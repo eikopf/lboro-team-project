@@ -4,11 +4,11 @@
   <title>iBay User Home</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="shortcut icon" href="favicon.ico" />
   <meta name="robots" content="noindex" />
-  <link rel="stylesheet" type="text/css" href="../css/base.css" />
-  <link rel="stylesheet" type="text/css" href="../css/add-item.css" />
-  <script rel="preload" src="../js/add-item.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="css/add-item.css" />
+  <script rel="preload" src="js/add-item.js"></script>
   <script rel="preload" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script rel="preload" type="text/javascript">
     // callback to clear the inputs, bound to the clear button
@@ -25,7 +25,7 @@
 
     const add_item = () =>
       file_list_to_data_urls($("#images").prop("files"))
-        .then((files) => fetch("../php/add-item.php", {
+        .then((files) => fetch("php/add-item.php", {
           method: "POST",
           body: JSON.stringify({
             title: $("#title").val(),

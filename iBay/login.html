@@ -4,12 +4,12 @@
 <head>
   <title>iBay - Login</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="shortcut icon" href="../favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="../css/base.css" />
-  <link rel="stylesheet" type="text/css" href="../css/login.css" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="css/login.css" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="../js/login.js"></script>
+  <script src="js/login.js"></script>
   <script type="text/javascript">
     // callback invoked when the login button is clicked
     const login = () => {
@@ -40,7 +40,7 @@
       const postcode = $("#register-postcode-input").val();
 
       // try to register the user
-      fetch("../php/register.php", {
+      fetch("php/register.php", {
         method: "POST",
         body: JSON.stringify({
           name: name,

@@ -5,7 +5,7 @@
 /**
  * The path to the `user.php` script relative to `user.html`.
  */
-const user_data_script = "../php/user.php";
+const user_data_script = "php/user.php";
 
 /**
  * Fetches the information required to render the current user's home page.

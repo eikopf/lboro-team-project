@@ -2,7 +2,7 @@
  * The path to the login script relative to `login.html`.
  *
  */
-const login_script = "../php/login.php";
+const login_script = "php/login.php";
 
 /**
  * Checks the given user credentials against the database, and logs the

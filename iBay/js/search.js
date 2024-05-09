@@ -20,7 +20,7 @@
  * The script invoked when making search requests to the server.
  *
  */
-const search_script = "../php/search.php";
+const search_script = "php/search.php";
 
 /**
  * Converts the given table of strings into a properly-typed item.
