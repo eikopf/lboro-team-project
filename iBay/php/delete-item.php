@@ -39,3 +39,5 @@ DELETE FROM items, images
       WHERE items.id = $item_id
       AND items.owner = $user_id
 ");
+
+echo json_encode(["success" => true]);

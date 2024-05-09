@@ -62,11 +62,19 @@
           }
         });
 
+    // callback invoked when clicking on an item
+    const edit_item = (item) => {
+      // stash the item's contents
+      window.sessionStorage.setItem("selected-item", JSON.stringify(item));
+      // jump to the editing page
+      location = "edit-item.html";
+    };
+
     // callback to render and display the user's items
     const insert_items = () =>
       user_data
         .then((data) => data.items)
-        .then((items) => items.map(render_user_item))
+        .then((items) => items.map((item) => render_user_item(item, edit_item)))
         .then((items) => items.forEach((item) =>
           document
             .querySelector("#rendered-user-items").appendChild(item)));

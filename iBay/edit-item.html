@@ -1,0 +1,141 @@
+<html>
+
+<head>
+  <title>iBay - Edit Item</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="css/edit-item.css" />
+  <script rel="preload" src="js/add-item.js"></script>
+  <script rel="preload" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // pull the item data from session storage
+    const item = JSON.parse(window.sessionStorage.getItem("selected-item"));
+    console.log(item);
+
+    // callback to insert item info when the page loads
+    const set_input_values = () => {
+      $("#title").val(item.title);
+      $("#description").val(item.description);
+      $("#category").val(item.categories[0]);
+      $("#price").val(item.price.toFixed(2));
+      $("#postage").val(item.postage.toFixed(2));
+      document.querySelector("#start").valueAsDate = new Date(item.start);
+      document.querySelector("#end").valueAsDate = new Date(item.finish);
+    };
+
+    // callback to delete the item when the delete button is clicked
+    const delete_item = () =>
+      fetch("php/delete-item.php", {
+        method: "POST",
+        body: JSON.stringify({id: item.id})
+      })
+        .then((res) => res.text())
+        .then(JSON.parse)
+        .then((body) => {
+          if (body.success) {
+            location.href = "user.html";
+          } else {
+            window.alert(`Failed to delete the item: ${body.message}`);
+          }
+        });
+
+    // callback to update the item when the update button is clicked
+    const update_item = () =>
+      file_list_to_data_urls($("#images").prop("files"))
+        .then((files) => fetch("php/update-item.php", {
+          method: "POST",
+          body: JSON.stringify({
+            id: item.id,
+            title: $("#title").val(),
+            description: $("#description").val(),
+            category: $("#category").val(),
+            price: Number.parseFloat($("#price").val()),
+            postage: Number.parseFloat($("#postage").val()),
+            start: $("#start").val(),
+            end: $("#end").val(),
+            images: files,
+          })
+        }))
+        .then((res) => res.text())
+        .then(JSON.parse)
+        .then((body) => {
+          if (body.success) {
+            location.href = "user.html";
+          } else {
+            window.alert(`Failed to update the item: ${body.message}`);
+          }
+        });
+
+    // delete the data in session storage
+    window.sessionStorage.removeItem("selected-item");
+  </script>
+</head>
+
+<body onload="set_input_values()">
+  <header>
+    <span onclick="location = 'user.html'" class="material-symbols-outlined return-button">keyboard_return</span>
+    <div class="edit-item-header-title-container">
+      <span class="edit-item-header-title">Edit Your Item</span>
+    </div>
+  </header>
+  <div class="edit-item-main-content-container">
+    <div class="edit-item-body-container">
+      <ul class="edit-item-input-list">
+        <li class="edit-item-input-list-item title">
+          <span class="edit-item-label title">Title</span>
+          <input id="title" type="text"></input>
+        </li>
+        <li class="edit-item-input-list-item description">
+          <span class="edit-item-label description">Description</span>
+          <textarea id="description" maxlength="100"></textarea>
+        </li>
+        <li class="edit-item-input-list-item category">
+          <span class="edit-item-label category">Category</span>
+          <select id="category">
+            <option value="" default>None</option>
+            <option value="art">Art</option>
+            <option value="books">Books</option>
+            <option value="clothes">Clothes</option>
+            <option value="electronics">Electronics</option>
+            <option value="media">Media</option>
+            <option value="music">Music</option>
+            <option value="toys">Toys</option>
+          </select>
+        </li>
+        <li class="edit-item-input-list-item price">
+          <span class="edit-item-label price">Price</span>
+          <input id="price" inputmode="decimal"></input>
+        </li>
+        <li class="edit-item-input-list-item postage">
+          <span class="edit-item-label postage">Postage</span>
+          <input id="postage" inputmode="decimal"></input>
+        </li>
+        <li class="edit-item-input-list-item start">
+          <span class="edit-item-label start">Starting Date</span>
+          <input id="start" type="date"></input>
+        </li>
+        <li class="edit-item-input-list-item end">
+          <span class="edit-item-label end">Ending Date</span>
+          <input id="end" type="date"></input>
+        </li>
+        <li class="edit-item-input-list-item images">
+          <span class="edit-item-label images">New Images</span>
+          <input multiple id="images" type="file" accept="image/png, image/jpeg, image/webp"></input>
+        </li>
+      </ul>
+      <div class="edit-item-buttons">
+        <div onclick="delete_item()" class="edit-item-button-container delete">
+          <span class="material-symbols-outlined edit-item-button delete">delete</span>
+        </div>
+        <div onclick="update_item()" class="edit-item-button-container update">
+          <span class="material-symbols-outlined edit-item-button update">upgrade</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

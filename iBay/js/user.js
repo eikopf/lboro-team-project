@@ -27,11 +27,15 @@ const get_user_data = async () =>
  * Renders the given `item` as an `HTMLDivElement`, which can then be attached to the DOM.
  *
  * @param {Item} item - The item to be rendered.
+ * @param {(Item) => void} click_callback - The action to execute when the item is clicked.
  * @returns {HTMLDivElement}
  */
-const render_user_item = (item) => {
+const render_user_item = (item, click_callback) => {
   const root = document.createElement("div");
   root.setAttribute("class", "user-item");
+
+  // bind the given callback to the "click" event
+  root.addEventListener("click", () => click_callback(item));
 
   // thumbnail
   const thumbnail = document.createElement("img");
