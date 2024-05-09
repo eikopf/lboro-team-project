@@ -1,7 +1,7 @@
 <?php
 
 // first, connect to the database
-$db = mysqli_connect("localhost", "root", "", "team_project");
+$db = mysqli_connect("localhost", "group4", "Ra4nPnYuNAmpqYJpPipE", "group4");
 
 // if the connection failed, exit
 if (!$db) {

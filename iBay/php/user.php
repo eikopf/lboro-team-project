@@ -18,7 +18,7 @@ $db_hostname = "localhost";
 $db_database = "team_project";
 
 // connect to database
-$db = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
+$db = mysqli_connect("localhost", "group4", "Ra4nPnYuNAmpqYJpPipE", "group4");
 
 // throw an error if the connection failed
 if (!$db) {
@@ -30,8 +30,8 @@ $result = $db->query(
   "SELECT name, email, rating, address, postcode FROM users WHERE id = $user_id"
 )->fetch_assoc();
 // include the user's items
-$result["items"] = $db->query("
-SELECT 
+$result["items"] = $db->query(
+"SELECT 
 items.id, 
 items.title, 
 items.description, 
@@ -43,7 +43,7 @@ items.finish,
 images.id AS image_id,
 images.data AS image_data
 FROM items LEFT JOIN
-  (SELECT item, ANY_VALUE(id) AS id, ANY_VALUE(data) AS data FROM images GROUP BY item) AS images
+  (SELECT item, id, data FROM images GROUP BY item) AS images
   ON items.id = images.item
   WHERE items.owner = $user_id
 "

@@ -14,14 +14,8 @@ if (!isset($_SESSION['auth'])) {
 // read in the new item info
 $new_item = json_decode(file_get_contents("php://input"), true);
 
-// credentials
-$db_username = "root";
-$db_password = "";
-$db_hostname = "localhost";
-$db_database = "team_project";
-
 // connect to database
-$db = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
+$db = mysqli_connect("localhost", "group4", "Ra4nPnYuNAmpqYJpPipE", "group4");
 
 // die if database connection failed
 if (!$db) {

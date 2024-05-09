@@ -6,7 +6,7 @@ $db_hostname = "localhost";
 $db_database = "team_project";
 
 // connect to database
-$db = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
+$db = mysqli_connect("localhost", "group4", "Ra4nPnYuNAmpqYJpPipE", "group4");
 
 // throw an error if the connection failed
 if (!$db) {

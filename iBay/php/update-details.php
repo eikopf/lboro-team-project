@@ -14,7 +14,7 @@ if (!isset($_SESSION["user_id"])) {
 $id = $_SESSION["user_id"];
 
 // connect to the database
-$db = mysqli_connect("localhost", "root", "", "team_project");
+$db = mysqli_connect("localhost", "group4", "Ra4nPnYuNAmpqYJpPipE", "group4");
 
 // exit if the connection failed
 if (!$db) {

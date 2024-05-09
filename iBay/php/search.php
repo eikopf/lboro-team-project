@@ -19,7 +19,7 @@ $raw_json = file_get_contents('php://input');
 $json = json_decode($raw_json, true);
 
 // connect to database
-$db = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
+$db = mysqli_connect("localhost", "group4", "Ra4nPnYuNAmpqYJpPipE", "group4");
 
 // throw an error if the connection failed
 if (!$db) {
@@ -53,7 +53,7 @@ $result = $db->query(
   images.id AS image_id,
   images.data AS image_data
   FROM (items, users) LEFT JOIN
-    (SELECT item, ANY_VALUE(id) AS id, ANY_VALUE(data) AS data FROM images GROUP BY item) AS images
+    (SELECT item, id, data FROM images GROUP BY item) AS images
     ON items.id = images.item
     WHERE items.owner = users.id
     AND items.title LIKE \"%$query%\"
