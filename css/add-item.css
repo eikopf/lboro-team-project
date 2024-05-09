@@ -6,6 +6,7 @@ header {
 
 .material-symbols-outlined.return-button {
   font-size: 30pt;
+  cursor: pointer;
 }
 
 .add-item-header-title-container {

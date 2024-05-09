@@ -10,11 +10,43 @@
   <link rel="stylesheet" type="text/css" href="../css/add-item.css" />
   <script rel="preload" src="../js/add-item.js"></script>
   <script rel="preload" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script rel="preload" type="text/javascript">
+    // callback to clear the inputs, bound to the clear button
+    const clear_inputs = () => {
+      $("#title").val("");
+      $("#description").val("");
+      $("#category").val("");
+      $("#price").val("");
+      $("#postage").val("");
+      $("#start").val("");
+      $("#end").val("");
+      $("#images").val("");
+    };
+
+    const add_item = () =>
+      file_list_to_data_urls($("#images").prop("files"))
+        .then((files) => fetch("../php/add-item.php", {
+          method: "POST",
+          body: JSON.stringify({
+            title: $("#title").val(),
+            description: $("#description").val(),
+            category: $("#category").val(),
+            price: Number.parseFloat($("#price").val()),
+            postage: Number.parseFloat($("#postage").val()),
+            start: $("#start").val(),
+            end: $("#end").val(),
+            images: files,
+          })
+        }))
+        .then((it) => {console.log(it); return it;})
+        .then(JSON.parse);
+
+  </script>
 </head>
 
 <body>
   <header>
-    <span class="material-symbols-outlined return-button">keyboard_return</span>
+    <span onclick="location = 'user.html'" class="material-symbols-outlined return-button">keyboard_return</span>
     <div class="add-item-header-title-container">
       <span class="add-item-header-title">Add a New Item</span>
     </div>
@@ -68,7 +100,7 @@
         </ul>
       </div>
       <div class="add-item-buttons">
-        <div class="add-item-button-container clear">
+        <div onclick="clear_inputs()" class="add-item-button-container clear">
           <span class="material-symbols-outlined add-item-button clear">delete</span>
         </div>
         <div class="add-item-button-container submit">

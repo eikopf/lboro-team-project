@@ -51,13 +51,8 @@ create table items (
 create table images (
   id int not null auto_increment,
   item int not null,
-  -- an image is stored as a raw bytestring with at most 2^24 bytes (~16.7 MB)
+  -- an image is stored as a data URL with at most 2^24 bytes (~16.7 MB)
   data mediumblob not null,
-  -- the image format (i.e. mime type) is given as a string
-  media_type varchar(40) not null,
-  -- the dimensions of the image are given in pixels
-  width int unsigned not null,
-  height int unsigned not null,
   primary key (id),
   -- images are always associated with an owning item
   foreign key (item) references items(id)
