@@ -24,7 +24,7 @@ const get_user_data = async () =>
     });
 
 /**
- * Renders the given `item` as a `HTMLDivElement`, which can then be attached to the DOM.
+ * Renders the given `item` as an `HTMLDivElement`, which can then be attached to the DOM.
  *
  * @param {Item} item - The item to be rendered.
  * @returns {HTMLDivElement}
@@ -37,6 +37,11 @@ const render_user_item = (item) => {
   const thumbnail = document.createElement("img");
   thumbnail.setAttribute("class", "user-item-thumbnail");
   root.appendChild(thumbnail);
+
+  // set image if available
+  if (item.image.id !== null) {
+    thumbnail.setAttribute("src", item.image.data);
+  }
 
   // main body
   const body = document.createElement("div");
