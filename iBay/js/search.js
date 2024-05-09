@@ -5,15 +5,18 @@
  * @prop {string} title - The item's title.
  * @prop {string[]} categories - The set of categories that the item is in.
  * @prop {string} description - The item's longform description.
- * @prop {float} price - The item's price.
- * @prop {float} postage - The postage fee for the item.
+ * @prop {number} price - The item's price.
+ * @prop {number} postage - The postage fee for the item.
  * @prop {Date} start - The start date for the item's auctioning period.
  * @prop {Date} finish - The end date for the item's auctioning period.
  * @prop {object} owner - The item's owner.
- * @prop {int} owner.id - The owner's id.
+ * @prop {number} owner.id - The owner's id.
  * @prop {string} owner.name - The owner's name.
  * @prop {string} owner.email - The owner's email.
- * @prop {int} owner.rating - The owner's rating.
+ * @prop {number} owner.rating - The owner's rating.
+ * @prop {object} image - A single image associated with the item.
+ * @prop {?number} image.id - The database id of the image.
+ * @prop {string} image.data - The data URL of the image.
  */
 
 /**
@@ -55,6 +58,10 @@ const parse_item = (raw_item) => {
       name: raw_item.owner,
       email: raw_item.owner_email,
       rating: Number.parseInt(raw_item.owner_rating),
+    },
+    image: {
+      id: Number.parseInt(raw_item.image_id) || null,
+      data: raw_item.image_data,
     },
   };
 };
@@ -117,12 +124,20 @@ const render_item = (item) => {
   // thumbnail node
   let thumbnail = document.createElement("img");
   thumbnail.setAttribute("class", "search-result-item-thumbnail");
+  thumbnail.setAttribute("width", "100px");
+  thumbnail.setAttribute("height", "100px");
   result.appendChild(thumbnail);
+
+  // if the item has a defined image, then use it
+  if (item.image.id !== null) {
+    thumbnail.setAttribute("src", item.image.data);
+  }
 
   // title node
   let title = document.createElement("h2");
   title.textContent = item.title;
   title.style.fontSize = "17pt";
+  title.style.paddingInlineStart = "15px";
   title.style.margin = "inherit";
   result.appendChild(title);
 

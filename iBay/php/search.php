@@ -46,11 +46,15 @@ $result = $db->query(
   items.postage, 
   items.start, 
   items.finish, 
-  users.id as owner_id, 
-  users.name as owner, 
-  users.email as owner_email, 
-  users.rating as owner_rating
-  FROM items, users 
+  users.id AS owner_id, 
+  users.name AS owner, 
+  users.email AS owner_email, 
+  users.rating AS owner_rating,
+  images.id AS image_id,
+  images.data AS image_data
+  FROM (items, users) LEFT JOIN
+    (SELECT item, ANY_VALUE(id) AS id, ANY_VALUE(data) AS data FROM images GROUP BY item) AS images
+    ON items.id = images.item
     WHERE items.owner = users.id
     AND items.title LIKE \"%$query%\"
     AND items.categories LIKE \"%$category%\"
