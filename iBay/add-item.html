@@ -38,8 +38,16 @@
             images: files,
           })
         }))
+        .then((res) => res.text())
         .then((it) => {console.log(it); return it;})
-        .then(JSON.parse);
+        .then(JSON.parse)
+        .then((body) => {
+          if (body.success) {
+            location.href = "user.html";
+          } else {
+            window.alert(`Failed to add the given item: ${body.message}`);
+          }
+        });
 
   </script>
 </head>
@@ -103,7 +111,7 @@
         <div onclick="clear_inputs()" class="add-item-button-container clear">
           <span class="material-symbols-outlined add-item-button clear">delete</span>
         </div>
-        <div class="add-item-button-container submit">
+        <div onclick="add_item()" class="add-item-button-container submit">
           <span class="material-symbols-outlined add-item-button submit">add_circle</span>
         </div>
       </div>

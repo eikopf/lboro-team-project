@@ -27,8 +27,36 @@ $db = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
 if (!$db) {
   die(json_encode([
     "success" => false, 
-    "message" => "Failed to connect to the database."
+    "message" => "failed to connect to the database"
   ]));
+}
+
+if (!$new_item["title"]) {
+  die(json_encode(["success" => false, "message" => "a title was not provided"]));
+}
+
+if (!$new_item["description"]) {
+  die(json_encode(["success" => false, "message" => "a description was not provided"]));
+}
+
+if (!isset($new_item["category"])) {
+  die(json_encode(["success" => false, "message" => "a category was not provided"]));
+}
+
+if (!isset($new_item["price"])) {
+  die(json_encode(["success" => false, "message" => "a valid price was not provided"]));
+}
+
+if (!isset($new_item["postage"])) {
+  die(json_encode(["success" => false, "message" => "a valid postage fee was not provided"]));
+}
+
+if (!$new_item["start"]) {
+  die(json_encode(["success" => false, "message" => "a stating date was not provided"]));
+}
+
+if (!$new_item["end"]) {
+  die(json_encode(["success" => false, "message" => "an ending date was not provided"]));
 }
 
 // extract request elements and escape them as necessary
@@ -62,8 +90,19 @@ VALUES
 )
 ";
 
+$result = false;
+
 // insert the item
-$result = $db->query($query);
+try { 
+  $result = $db->query($query);
+} catch (mysqli_sql_exception $e) {
+  die(json_encode(["success" => false, "message" => $e->getMessage()]));
+}
+
+// if there are no images, exit successfully
+if (count($images) == 0) {
+  die(json_encode(["success" => true]));
+}
 
 // get the item's id
 $item_id = $db->insert_id;
