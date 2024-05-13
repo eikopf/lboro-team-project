@@ -5,13 +5,33 @@ $db = mysqli_connect("localhost", "group4", "Ra4nPnYuNAmpqYJpPipE", "group4");
 
 // if the connection failed, exit
 if (!$db) {
-  die("Failed to connect to team_project at root@localhost: " . mysqli_connect_error());
+  die(json_encode(["success" => false, "message" => "failed to connect to database"]));
 }
 
 // read and decode the data given to the registration form (into an associative array)
 $details = json_decode(file_get_contents("php://input"), true);
 
-// the following keys should exist, and if they do their values are escaped
+if (!$details["name"]) {
+  die(json_encode(["success" => false, "message" => "missing field: username"]));
+}
+
+if (!$details["email"]) {
+  die(json_encode(["success" => false, "message" => "missing field: email"]));
+}
+
+if (!$details["password"]) {
+  die(json_encode(["success" => false, "message" => "missing field: password"]));
+}
+
+if (!$details["address"]) {
+  die(json_encode(["success" => false, "message" => "missing field: address"]));
+}
+
+if (!$details["postcode"]) {
+  die(json_encode(["success" => false, "message" => "missing field: postcode"]));
+}
+
+// the following keys exist at this point, and their values should be escaped
 $name = $db->real_escape_string($details["name"]);
 $email = $db->real_escape_string($details["email"]);
 $password = $db->real_escape_string($details["password"]);

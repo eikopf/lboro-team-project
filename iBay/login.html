@@ -55,7 +55,7 @@
         .then((body) => {
           if (!(body["success"])) {
             console.log(body);
-            window.alert("Failed to register a new user with the given details.");
+            window.alert(`Failed to register a new user with the given details: ${body.message}`);
           } else {
             location.href = "user.html";
           }
